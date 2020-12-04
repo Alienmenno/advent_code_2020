@@ -1,0 +1,6 @@
+[package]
+name = "advent_code_2020"
+version = "0.1.0"
+authors = ["Alienmenno <alienmenno@hotmail.com>"]
+
+[dependencies]
