@@ -5,7 +5,7 @@ pub fn solve() {
 
     let mut seat_ids: Vec<usize> = boarding_passes.iter().map(|p| det_seat_id(p)).collect();
     seat_ids.sort_unstable();
-    println!("{:?}", seat_ids);
+    // println!("{:?}", seat_ids);
 
     let max_seat_id = seat_ids.iter().max().unwrap();
     println!("result: {}", max_seat_id);
