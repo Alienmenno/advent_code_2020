@@ -46,9 +46,9 @@ fn count_valid_passports2(passport_data: &Vec<Vec<String>>) -> usize {
                     ("iyr", s) => {let v = s.parse::<u32>().unwrap(); v >= 2010 && v <= 2020},
                     ("eyr", s) => {let v = s.parse::<u32>().unwrap(); v >= 2020 && v <= 2030},
                     ("hgt", s) => {check_height(s)},
-                    ("hcl", s) => {s.starts_with('#') && s.get(1..).unwrap().chars().all(|c| c.is_ascii_hexdigit())},
+                    ("hcl", s) => {s.starts_with('#') && s.trim_start_matches('#').chars().all(|c| c.is_ascii_hexdigit())},
                     ("ecl", s) => {eye_colors.iter().any(|&e| e == s)},
-                    ("pid", s) => {s.chars().all(|c| c.is_numeric() && s.chars().count() == 9)},
+                    ("pid", s) => {s.chars().all(|c| c.is_numeric() && s.len() == 9)},
                     ("cid", _) => true,
                     _ => false,
                 }) && p.iter()
