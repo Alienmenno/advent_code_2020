@@ -7,7 +7,8 @@
 // mod day7;
 // mod day8;
 // mod day9;
-mod day10;
+// mod day10;
+mod day11;
 
 extern crate itertools;
 
@@ -21,5 +22,6 @@ fn main() {
     // day7::solve();
     // day8::solve();
     // day9::solve();
-    day10::solve();
+    // day10::solve();
+    day11::solve();
 }

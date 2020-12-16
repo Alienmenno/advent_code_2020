@@ -50,16 +50,29 @@ fn count_possible_configs(adapters: &Vec<usize>, adapter_seq: & mut HashSet<Vec<
 fn count_configs(adapters: &Vec<usize>) -> usize {
     let jolt_diffs = adapters.windows(2).map(|w| w[1] - w[0]).collect::<Vec<usize>>();
     let c = jolt_diffs.as_slice().split(|n| *n != 1)
-                                 .filter(|s| !s.is_empty())
+                                //  .filter(|s| !s.is_empty())
                                  .map(|s| {
-                                     let mut r = 2usize.pow((s.len() - 1) as u32);
-                                     if (s.len() - 1) > 2 {
+                                     let r = tribonacci(s.len() + 1);
+                                     println!("{:?} = {}", s, r);
+                                     r
+                                     /*let mut r = 2usize.pow((s.len() - 1) as u32);
+                                     if s.len() > 3 {
                                          r -= s.len() - 3;
                                      }
-                                     r
+                                     r*/
                                  }).product::<usize>();
     println!("{:?}", c);
     return c;
+}
+
+fn tribonacci(stairs: usize) -> usize {
+    match stairs {
+        0 => 0,
+        1 => 1,
+        2 => 1,
+        3 => 2,
+        _ => tribonacci(stairs - 1) + tribonacci(stairs - 2) + tribonacci(stairs - 3)
+    }
 }
 
 #[cfg(test)]
