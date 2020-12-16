@@ -32,6 +32,7 @@ fn sum_jolt_diffs(adapters: &Vec<usize>) -> usize {
     return ones * threes;
 }
 
+#[allow(dead_code)]
 fn count_possible_configs(adapters: &Vec<usize>, adapter_seq: & mut HashSet<Vec<usize>>) {
     adapters.windows(3).enumerate().filter_map(|w| {
         if (w.1[2] - w.1[0]) <= 3 {Some(w.0 + 1)}
@@ -190,6 +191,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore]
     fn test_day10_part2_5seq2() {
         let adapters = vec![0,1,2,4,5,6,9];
         // [0,1,2,4,5,6,9]

@@ -17,6 +17,7 @@ fn parse_encoding_file(file_name: &str) -> Vec<usize> {
     input.lines().map(|v| v.parse().unwrap()).collect()
 }
 
+#[allow(non_snake_case)]
 fn check_XMAS_validity(data: Vec<usize>, preample_length: usize) -> Option::<usize> {
     // println!("vec: {:?}", data);
     let r = data.windows(preample_length+1).find(|w| {
