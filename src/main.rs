@@ -7,7 +7,7 @@ fn main() {
 
     let day = match args.get(1) {
         Some(x) => x.parse::<usize>().unwrap(),
-        None => 12,
+        None => 13,
     };
 
     println!("Running Advent of Code {{2020}} day: {}", day);

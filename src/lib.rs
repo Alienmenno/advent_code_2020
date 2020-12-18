@@ -12,6 +12,7 @@ mod day9;
 mod day10;
 mod day11;
 mod day12;
+mod day13;
 
 pub fn solve_day(day: usize) {
     match day {
@@ -26,6 +27,7 @@ pub fn solve_day(day: usize) {
          9 => day9::solve(),
         10 => day10::solve(),
         11 => day11::solve(),
-         _ => day12::solve(),
+        12 => day12::solve(),
+         _ => day13::solve(),
     }
 }
