@@ -31,13 +31,19 @@ fn find_earliest_bus_depature(target_time: usize, busses: &Vec<Bus>) -> (usize, 
     return (r.0 - target_time, r.1);
 }
 
+/* Using Linear Diophantine: One equation to find interger solutions the system
+   of linear equations. This solution works for any combination of bus IDs
+   as long as they are all prime numbers. The reason this only works for primes
+   is that their greatest common divisor is 1 so defining v and u as being a / 1
+   and b / 1 respectively
+*/
 fn find_earliest_bus_sequence_time(busses: &Vec<Bus>) -> usize {
-    let mut search_busses = busses.clone();
+    let first_bus = *busses.first().unwrap();
     let mut found_busses: Vec<Bus> = Vec::new();
-    let mut target = search_busses.first().unwrap().id;
-    found_busses.push(search_busses.remove(0));
-    
-    for bus in search_busses {
+    found_busses.push(first_bus);
+    let mut target = first_bus.id;
+
+    for bus in busses.iter().skip(1) {
         let mut k = 0;
         target = iter::repeat_with(|| {
             let tmp = target + (k * found_busses.iter().map(|b| b.id).product::<usize>());
@@ -47,7 +53,7 @@ fn find_earliest_bus_sequence_time(busses: &Vec<Bus>) -> usize {
             (t + bus.offset) % bus.id != 0
         }).nth(0).unwrap();
 
-        found_busses.push(bus);
+        found_busses.push(*bus);
         println!("found_busses: {:?}, target: {}", found_busses, target);
     }
 
