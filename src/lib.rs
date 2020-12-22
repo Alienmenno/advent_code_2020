@@ -1,4 +1,5 @@
 extern crate itertools;
+extern crate regex;
 
 mod day1;
 mod day2;
@@ -15,6 +16,7 @@ mod day12;
 mod day13;
 mod day14;
 mod day15;
+mod day16;
 
 pub fn solve_day(day: usize) {
     match day {
@@ -32,6 +34,7 @@ pub fn solve_day(day: usize) {
         12 => day12::solve(),
         13 => day13::solve(),
         14 => day14::solve(),
-         _ => day15::solve(),
+        15 => day15::solve(),
+         _ => day16::solve(),
     }
 }

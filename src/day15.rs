@@ -51,6 +51,7 @@ mod tests {
         assert_eq!(r, 436);
     }
 
+    #[ignore]
     #[test]
     fn test_day15_part2() {
         let nums = parse_file("dat/day15_example.txt");
