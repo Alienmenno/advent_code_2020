@@ -13,9 +13,8 @@ pub fn solve() {
     println!("Result: {:?}", sum_invalid_fields);
     
     let invalid_ticket_ids = invalid_tickets.into_iter().map(|(i, _)| i).collect::<Vec<usize>>();
-    let mut valid_tickets = determine_valid_tickets(&ticket_data, invalid_ticket_ids);
-    valid_tickets.push(ticket_data.my_ticket.clone()); // Add my own ticket
-    // println!("Valid Tickets: {:?}", valid_tickets);
+    let valid_tickets = determine_valid_tickets(&ticket_data, invalid_ticket_ids);
+    // println!("Valid Tickets: {:?}", valid_tickets.len());
 
     let field_order = determine_ticket_field_order(&ticket_data, &valid_tickets);
     // println!("Field order: {:?}", field_order);
@@ -27,15 +26,16 @@ pub fn solve() {
 fn find_invalid_fields_in_tickets(ticket_data: &TicketData) -> Vec<(usize, usize)> {
 
     ticket_data.other_tickets.iter().enumerate().filter_map(|(i, t)| {
-        let f = t.fields.iter().filter(|&tv| {
-            !ticket_data.rules.iter().any(|(_, v)| {
+        t.fields.iter().filter_map(|tv| {
+            if !ticket_data.rules.iter().any(|(_, v)| {
                 v.iter().any(|(min, max)| min <= tv && tv <= max)
-            })
-        })
-        // .inspect(|x| println!("invalid: {:?}", x))
-        .sum::<usize>();
-        if f != 0 {Some((i, f))}
-        else {None}
+            }) {
+                Some((i, tv.clone()))
+            }
+            else {
+                None
+            }
+        }).nth(0)
     }).collect()
 }
 
@@ -46,7 +46,6 @@ fn determine_valid_tickets(ticket_data: &TicketData, invalid_ticket_ids: Vec<usi
     }).collect::<Vec<Ticket>>()
 }
 
-// Function is not able to determine all fields uniquely, but answer is still correct for puzzle??
 fn determine_ticket_field_order(ticket_data: &TicketData, valid_tickets: &Vec<Ticket>) -> Vec<(String, usize)> {
     let mut possible_field_orders: Vec<(String, Vec<usize>)> = Vec::new();
     for (rule, vals) in &ticket_data.rules {
@@ -55,7 +54,7 @@ fn determine_ticket_field_order(ticket_data: &TicketData, valid_tickets: &Vec<Ti
                          .all(|ticket| {
                             vals.iter()
                             .any(|(min, max)| {
-                                min <= &ticket.fields[i] && max >= &ticket.fields[i]
+                                min <= &ticket.fields[i] && &ticket.fields[i] <= max
                             })
                          })
             }).collect();
