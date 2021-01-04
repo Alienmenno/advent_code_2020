@@ -61,7 +61,7 @@ fn determine_ticket_field_order(ticket_data: &TicketData, valid_tickets: &Vec<Ti
         possible_field_orders.push((rule.clone(), v));
     }
     possible_field_orders.sort_by_key(|(_, indexs)| indexs.len());
-    // println!("Possbible values: {:?}", possible_field_orders);
+    // println!("possible values: {:?}", possible_field_orders);
 
     let mut determined_indices: HashSet::<usize> = HashSet::new();
     possible_field_orders.iter().map(|(r, vs)| {
